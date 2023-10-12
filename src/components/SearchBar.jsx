@@ -1,38 +1,30 @@
 import { useState } from 'react';
+import { useFetch } from '../hooks/useFetch';
 
 
 export const SearchBar = ({ onNewSearch }) => {
 
-    const [inputValue, setInputValue] = useState('')
+    const [inputValue, setInputValue] = useState('');
+    const [search, setSearch] = useState('');
 
-    const handleChange = (event) => {
+    const { data, isLoading, error } = useFetch( `https://itunes.apple.com/search?term=${ search }&entity=podcast` );
 
-        setInputValue( event.target.value );
+    const handleChange = ({ target }) => {
 
-    }
-
-    const onSubmit = ( event ) => {
-        
-        event.preventDefault();
-        const newValue = inputValue.trim();
-
-        if ( newValue !== '' ) {
-        
-            onNewSearch( newValue );
-            setInputValue('');
-        
-        }
+        const newValue = target.value.toLowerCase().replace(/\s+/g, '+');
+        setSearch( newValue );
+        setInputValue( target.value );
 
     }
 
   return (
     
-    <form onSubmit={ onSubmit } aria-label="form">
+    <form>
 
         <input 
             type="text" 
             id="category" 
-            value={inputValue} 
+            value={ inputValue } 
             onChange={ handleChange } 
             placeholder="..."
         />
