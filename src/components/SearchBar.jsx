@@ -1,18 +1,14 @@
 import { useState } from 'react';
-import { useFetch } from '../hooks/useFetch';
 
 
-export const SearchBar = ({ onNewSearch }) => {
+export const SearchBar = ({ onSetSearch }) => {
 
-    const [inputValue, setInputValue] = useState('');
-    const [search, setSearch] = useState('');
-
-    const { data, isLoading, error } = useFetch( `https://itunes.apple.com/search?term=${ search }&entity=podcast` );
+    const [ inputValue, setInputValue ] = useState('');
 
     const handleChange = ({ target }) => {
 
         const newValue = target.value.toLowerCase().replace(/\s+/g, '+');
-        setSearch( newValue );
+        onSetSearch( newValue );
         setInputValue( target.value );
 
     }

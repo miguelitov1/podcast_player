@@ -1,0 +1,11 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+body {
+    padding: 20px;
+    color: #FFFFFF;
+    background-color: #0A0A0A;
+}
