@@ -1,27 +1,25 @@
 import { useState } from 'react'
 import { SearchBar } from './components/SearchBar'
+import { PodcastGrid } from './components/PodcastGrid'
 
 export const PodcastPlayerApp = () => {
 
-    const [ categories, setCategories ] = useState(['One Punch', 'Samurai X', 'Dragon Ball']);
+  const [search, setSearch] = useState('');
 
-    const onAddCategory = ( newCategory ) => {
+  const onSetSearch = ( result ) => {
 
-      setCategories([ newCategory, ...categories ]);
-      
-    };
+    setSearch( result );
+
+  }
 
   return (
-    <>
 
-        <h1>Buscador</h1>
+    <div className="flex-col mx-auto w-830">
 
-        <SearchBar onNewSearch={ onAddCategory }/>
+        <SearchBar onSetSearch={ onSetSearch }/>
 
-        <ul>
-            {categories.map( category =>  <li key={category}>{category}</li> )}
-        </ul>
-    
-    </>
+        <PodcastGrid search={ search }/>
+
+    </div>
   )
 }

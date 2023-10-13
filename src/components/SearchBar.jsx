@@ -1,38 +1,26 @@
 import { useState } from 'react';
 
 
-export const SearchBar = ({ onNewSearch }) => {
+export const SearchBar = ({ onSetSearch }) => {
 
-    const [inputValue, setInputValue] = useState('')
+    const [ inputValue, setInputValue ] = useState('');
 
-    const handleChange = (event) => {
+    const handleChange = ({ target }) => {
 
-        setInputValue( event.target.value );
-
-    }
-
-    const onSubmit = ( event ) => {
-        
-        event.preventDefault();
-        const newValue = inputValue.trim();
-
-        if ( newValue !== '' ) {
-        
-            onNewSearch( newValue );
-            setInputValue('');
-        
-        }
+        const newValue = target.value.toLowerCase().replace(/\s+/g, '+');
+        onSetSearch( newValue );
+        setInputValue( target.value );
 
     }
 
   return (
     
-    <form onSubmit={ onSubmit } aria-label="form">
+    <form>
 
         <input 
             type="text" 
             id="category" 
-            value={inputValue} 
+            value={ inputValue } 
             onChange={ handleChange } 
             placeholder="..."
         />
