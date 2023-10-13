@@ -13,14 +13,13 @@ export const PodcastPlayerApp = () => {
   }
 
   return (
-    <>
 
-        <h1>Buscador</h1>
+    <div className="flex-col mx-auto w-830">
 
         <SearchBar onSetSearch={ onSetSearch }/>
 
         <PodcastGrid search={ search }/>
-    
-    </>
+
+    </div>
   )
 }
