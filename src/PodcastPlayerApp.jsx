@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { React, useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { SearchBar } from './components/SearchBar'
 import { PodcastGrid } from './components/PodcastGrid'
+import { PodcastDetails } from './components/PodcastDetailsGrid';
 
 export const PodcastPlayerApp = () => {
 
@@ -14,12 +16,21 @@ export const PodcastPlayerApp = () => {
 
   return (
 
-    <div className="flex-col mx-auto w-830">
+    <BrowserRouter>
+      <Routes>
 
-        <SearchBar onSetSearch={ onSetSearch }/>
+        <Route exact path="/" element={
+          <div className="flex-col mx-auto w-830">
+            <SearchBar onSetSearch={ onSetSearch }/>
+            <PodcastGrid search={ search }/>
+          </div>
+        }/>
 
-        <PodcastGrid search={ search }/>
+        <Route exact path="/podcast/:podcastId" element={
+          <PodcastDetails />
+        }/>
 
-    </div>
+      </Routes>
+    </BrowserRouter>
   )
 }
