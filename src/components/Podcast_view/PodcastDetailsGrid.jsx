@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AudioOrderContext } from '../../providers/AudioOrderProvider';
 
@@ -15,6 +15,7 @@ export const PodcastDetailsGrid = () => {
 
   if (data && data.rss && data.rss.channel && data.rss.channel.item) {
     podcasts = podcastsDataSetter(data); //setea la informacion de los podcasts en un array de objetos
+    podcasts = podcasts.reverse();
   }
 
 
