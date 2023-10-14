@@ -17,5 +17,7 @@ export const podcastsDataSetter = (data) => {
         }
     });
 
-    return podcasts;
+    const reversedPodcasts = [...podcasts].reverse();
+
+    return reversedPodcasts;
 }
