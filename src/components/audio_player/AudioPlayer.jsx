@@ -1,5 +1,6 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import { AudioOrderContext } from "../../providers/AudioOrderProvider";
+import imagen from "../../public/onda-sonora.png";
 
 import CardContent from "@material-ui/core/CardContent";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
@@ -57,7 +58,7 @@ export const AudioPlayer = () => {
       <Card className="flex justify-center w-full bg-whitesmoke shadow-md">
         <div className="flex flex-col max-w-lg max-h-25">
           <CardContent className="flex-1">
-            <Typography className="line-clamp-2 text-base" component="p" variant="p">
+            <Typography className="line-clamp-2 text-base" component="p" variant="h6">
 			        {currentTrackIndex !== null ? audiosOrder[currentTrackIndex].title : "No hay canción seleccionada"}
             </Typography>
           </CardContent>
@@ -83,7 +84,7 @@ export const AudioPlayer = () => {
             </IconButton>
           </div>
         </div>
-        <CardMedia className="w-40" image={audiosOrder[currentTrackIndex].image} />
+        <CardMedia className="w-40" image={audiosOrder[currentTrackIndex]?.image || imagen} />
         <audio className="audio-element" ref={audioRef}>
 		{currentTrackIndex !== null && <source src={audiosOrder[currentTrackIndex].url} />}
         </audio>
