@@ -1,11 +1,11 @@
-import { useFetch } from '../hooks/useFetch';
+import { useFetchJSON } from '../hooks/useFetchJSON';
 import { PodcastItem } from './PodcastItem';
 
 export const PodcastGrid = ({ search }) => {
 
-    const { data, isLoading, error } = useFetch( `https://itunes.apple.com/search?term=${ search }&media=podcast` );
+    const { data, isLoading, error } = useFetchJSON( `https://itunes.apple.com/search?term=${ search }&media=podcast` );
     console.log(data);
-    
+
     return (
         <>
 
@@ -23,9 +23,11 @@ export const PodcastGrid = ({ search }) => {
                 </tr>
               </thead>
               <tbody>
-                {data.results.map((podcast, index) => (
-                  <PodcastItem key={ podcast.trackId } podcast={ podcast } index={ index + 1 }/>
+
+                {data.results.map((podcast, index) => ( // Renderiza un elemento PodcastItem para cada resultado de la búsqueda
+                    <PodcastItem key={ podcast.trackId } podcast={ podcast } index={ index + 1 }/>
                 ))}
+                
               </tbody>
             </table>
           )}
