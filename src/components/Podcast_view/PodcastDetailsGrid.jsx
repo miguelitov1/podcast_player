@@ -5,7 +5,6 @@ import { AudioOrderContext } from '../../providers/AudioOrderProvider';
 import { useFetchXML } from '../../hooks/useFetchXML';
 import { PodcastDetailItems } from './PodcastDetailItems';
 import { podcastsDataSetter } from '../../helpers/podcastsDataSetter';
-import { AudioPlayer } from '../audio_player/AudioPlayer';
 
 export const PodcastDetailsGrid = () => {
   const [ audiosOrder, setAudiosOrder ] = useContext(AudioOrderContext);
