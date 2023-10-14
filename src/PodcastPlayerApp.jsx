@@ -32,9 +32,8 @@ export const PodcastPlayerApp = () => {
       
       //   </Routes>
       // </BrowserRouter>
-      <>
+
         <AudioPlayer />
-      </>
 
       )
     }
