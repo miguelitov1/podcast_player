@@ -24,7 +24,7 @@ export const SearchBar = ({ onSetSearch }) => {
             id="category" 
             value={ inputValue } 
             onChange={ handleChange } 
-            placeholder="..."
+            placeholder="Buscador de podcasts..."
         />
 
     </form>

@@ -1,4 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
+import { AudioOrderContext } from "../../providers/AudioOrderProvider";
+import imagen from "../../public/onda-sonora.png";
+
 import CardContent from "@material-ui/core/CardContent";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
@@ -11,17 +14,22 @@ import PauseIcon from "@material-ui/icons/Pause";
 import Card from "@material-ui/core/Card";
 
 export const AudioPlayer = () => {
+  const [audiosOrder, ] = useContext(AudioOrderContext);
+
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
   const playAudio = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
+	if (isPlaying) {
+	  audioRef.current.pause();
+	} else {
+	  // Verificar si el objeto de audio está listo para reproducirse
+	  if (audioRef.current.readyState === 4) {
+		audioRef.current.play();
+	  }
+	}
+	setIsPlaying(!isPlaying);
   };
 
   const changeTrack = (index) => {
@@ -31,58 +39,54 @@ export const AudioPlayer = () => {
     audioRef.current.play();
   };
 
-  const tracks = [
-    {
-      url: "https://audioplayer.madza.dev/Madza-Chords_of_Life.mp3",
-      title: "Madza - Chords of Life",
-      image: "https://www.mgc.es/wp-content/uploads/2020/04/musica-corazon.jpg",
-    },
-    {
-      url: "https://audioplayer.madza.dev/Madza-Late_Night_Drive.mp3",
-      title: "Madza - Late Night Drive",
-      image: "https://www.mgc.es/wp-content/uploads/2020/04/musica-corazon-feliz.jpg",
-    },
-    {
-      url: "https://audioplayer.madza.dev/Madza-Persistence.mp3",
-      title: "Madza - Persistence",
-      image: "https://www.mgc.es/wp-content/uploads/2020/04/musica-corazon.jpg",
-    },
-  ];
+  useEffect(() => {
+    const handleEnd = () => {
+      setIsPlaying(false);
+      setCurrentTrackIndex(null);  // Anular la reproducción al llegar al final
+    };
+
+    audioRef.current.addEventListener("ended", handleEnd);
+
+    return () => {
+      audioRef.current.removeEventListener("ended", handleEnd);
+    };
+  }, []);
+  
 
   return (
-    <div className="p-4">
-      <Card className="flex w-96 bg-whitesmoke shadow-md">
-        <div className="flex flex-col">
+    <div className="w-full flex justify-center">
+      <Card className="flex justify-center w-full bg-whitesmoke shadow-md">
+        <div className="flex flex-col max-w-lg max-h-25">
           <CardContent className="flex-1">
-            <Typography component="h5" variant="h5">
-              {tracks[currentTrackIndex].title}
+            <Typography className="line-clamp-2 text-base" component="p" variant="h6">
+			        {currentTrackIndex !== null ? audiosOrder[currentTrackIndex].title : "No hay canción seleccionada"}
             </Typography>
           </CardContent>
-          <div className="flex items-center pl-1 pb-1">
+          <div className="flex items-center justify-center pl-1 pb-1">
             <IconButton
               aria-label="previous"
-              onClick={() => changeTrack((currentTrackIndex - 1 + tracks.length) % tracks.length)}
+              onClick={() => changeTrack((currentTrackIndex - 1 + audiosOrder.length) % audiosOrder.length)}
             >
               {useTheme().direction !== "rtl" ? <SkipPreviousIcon /> : <SkipNextIcon />}
             </IconButton>
             <IconButton aria-label="play/pause" onClick={playAudio}>
               {isPlaying ? (
-                <PauseIcon style={{ height: 38, width: 38 }} />
+                <PauseIcon style={{ height: 20, width: 20 }} />
               ) : (
-                <PlayArrowIcon style={{ height: 38, width: 38 }} />
+                <PlayArrowIcon style={{ height: 20, width: 20 }} />
               )}
             </IconButton>
             <IconButton
               aria-label="next"
-              onClick={() => changeTrack((currentTrackIndex + 1) % tracks.length)}
+              onClick={() => changeTrack((currentTrackIndex + 1) % audiosOrder.length)}
             >
               {useTheme().direction !== "rtl" ? <SkipNextIcon /> : <SkipPreviousIcon />}
             </IconButton>
           </div>
         </div>
-        <CardMedia className="w-40" image={tracks[currentTrackIndex].image} />
+        <CardMedia className="w-40" image={audiosOrder[currentTrackIndex]?.image || imagen} />
         <audio className="audio-element" ref={audioRef}>
-          <source src={tracks[currentTrackIndex].url} />
+		{currentTrackIndex !== null && <source src={audiosOrder[currentTrackIndex].url} />}
         </audio>
       </Card>
     </div>
