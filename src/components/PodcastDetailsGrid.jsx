@@ -7,6 +7,7 @@ export const PodcastDetailsGrid = () => {
 
   const feedUrl = useLocation().state.feedUrl; //recoge la informacion del podcast seleccionado
   const { data, isLoading, error } = useFetchXML( feedUrl ); //recoge la informacion del canal de podcast seleccionado
+  console.log(data);
 
   let podcasts = [];
 

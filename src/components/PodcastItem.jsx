@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 export const PodcastItem = ({ podcast, index }) => {
 
     const feedUrl = podcast.feedUrl;
+    
     return (
         <tr key={podcast.collectionId} className='max-h-16'> {/* Renderiza una fila de la tabla por cada podcast */}
             <td>
