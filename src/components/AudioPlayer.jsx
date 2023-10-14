@@ -58,7 +58,6 @@ export const AudioPlayer = () => {
   
   return (
     <div className="max-w-xl mx-auto my-8">
-      <h4 className="text-xl font-bold mb-4">How to create Music Player UI in ReactJS?</h4>
       <Card className="flex bg-whitesmoke shadow-md">
         <div className="flex flex-col">
           <CardContent className="flex-1">
