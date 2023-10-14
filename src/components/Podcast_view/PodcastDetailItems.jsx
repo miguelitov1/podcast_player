@@ -6,7 +6,11 @@ export const PodcastDetailItems = ({ podcast, index, onClick }) => {
     const imageUrl = podcast.image || genericImage; // Si no hay imagen, usa la genérica
 
     return (
-        <tr key={podcast.id} className='max-h-16 border-b border-gray-300' onClick={() => onClick(index)}> {/* Renderiza una fila de la tabla por cada podcast */}
+        <tr 
+          key={podcast.id} 
+          className='max-h-16 border-b border-gray-300 cursor-pointer' 
+          onClick={() => onClick(index)}
+        > {/* Renderiza una fila de la tabla por cada podcast */}
             <td>
               { index }
             </td>

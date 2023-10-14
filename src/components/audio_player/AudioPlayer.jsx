@@ -53,15 +53,15 @@ export const AudioPlayer = () => {
   
 
   return (
-    <div className="p-4">
-      <Card className="flex w-96 bg-whitesmoke shadow-md">
-        <div className="flex flex-col">
+    <div className="w-full flex justify-center">
+      <Card className="flex justify-center w-full bg-whitesmoke shadow-md">
+        <div className="flex flex-col max-w-lg max-h-25">
           <CardContent className="flex-1">
-            <Typography component="h5" variant="h5">
-			{currentTrackIndex !== null ? audiosOrder[currentTrackIndex].title : "No hay canción seleccionada"}
+            <Typography className="line-clamp-2 text-base" component="p" variant="p">
+			        {currentTrackIndex !== null ? audiosOrder[currentTrackIndex].title : "No hay canción seleccionada"}
             </Typography>
           </CardContent>
-          <div className="flex items-center pl-1 pb-1">
+          <div className="flex items-center justify-center pl-1 pb-1">
             <IconButton
               aria-label="previous"
               onClick={() => changeTrack((currentTrackIndex - 1 + audiosOrder.length) % audiosOrder.length)}
@@ -70,9 +70,9 @@ export const AudioPlayer = () => {
             </IconButton>
             <IconButton aria-label="play/pause" onClick={playAudio}>
               {isPlaying ? (
-                <PauseIcon style={{ height: 38, width: 38 }} />
+                <PauseIcon style={{ height: 20, width: 20 }} />
               ) : (
-                <PlayArrowIcon style={{ height: 38, width: 38 }} />
+                <PlayArrowIcon style={{ height: 20, width: 20 }} />
               )}
             </IconButton>
             <IconButton
