@@ -1,4 +1,4 @@
-
+//Componente para mostrar detalles de un podcast en una fila de una tabla.
 
 export const PodcastDetailItems = ({ podcast, index }) => {
 
@@ -23,11 +23,13 @@ export const PodcastDetailItems = ({ podcast, index }) => {
                   </div>
             </td>
 
-            <td className="mx-2 text-sm">
-              {podcast.description}
+            <td className="text-gray-500 mx-2 text-sm">
+              <div className=" h-10 mx-auto line-clamp-2">
+                {podcast.description}
+              </div>
             </td>
 
-            <td className='text-sm'>
+            <td className='text-gray-500 text-sm'>
                   {new Date(podcast.releaseDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
             </td> 
 

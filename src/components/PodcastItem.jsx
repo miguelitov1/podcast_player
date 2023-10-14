@@ -30,15 +30,15 @@ export const PodcastItem = ({ podcast, index }) => {
 
             <td className="mx-2 text-sm">
                 <Link to={`/podcast/${podcast.collectionId}`}>
-                    <p>
+                    <div className="text-gray-500 h-10 mx-auto line-clamp-2">
                         descripcion, descripcion, descripcion, descripcion, descripcion,
-                        {/* description, description, description, descripcion, descripcion, */}
-                        {/* description, description, description, descripcion, descripcion */}
-                    </p>
+                        description, description, description, descripcion, descripcion,
+                        description, description, description, descripcion, descripcion
+                    </div>
                 </Link>
             </td>
 
-            <td className='text-sm'>
+            <td className='text-gray-500 text-sm'>
                 <Link to={`/podcast/${podcast.collectionId}`}>
                     {new Date(podcast.releaseDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </Link>
