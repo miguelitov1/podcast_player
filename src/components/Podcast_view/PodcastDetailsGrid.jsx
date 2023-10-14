@@ -1,19 +1,36 @@
+import { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useFetchXML } from '../hooks/useFetchXML';
+import { AudioOrderContext } from '../../providers/AudioOrderProvider';
+
+import { useFetchXML } from '../../hooks/useFetchXML';
 import { PodcastDetailItems } from './PodcastDetailItems';
-import { podcastsDataSetter } from '../helpers/podcastsDataSetter';
+import { podcastsDataSetter } from '../../helpers/podcastsDataSetter';
+import { AudioPlayer } from '../audio_player/AudioPlayer';
 
 export const PodcastDetailsGrid = () => {
-
+  const [ audiosOrder, setAudiosOrder ] = useContext(AudioOrderContext);
   const feedUrl = useLocation().state.feedUrl; //recoge la informacion del podcast seleccionado
   const { data, isLoading, error } = useFetchXML( feedUrl ); //recoge la informacion del canal de podcast seleccionado
-
+  
   let podcasts = [];
 
-  if (data && data.rss && data.rss.channel && data.rss.channel.item) podcasts = podcastsDataSetter( data ); //setea la informacion de los podcasts en un array de objetos
+  if (data && data.rss && data.rss.channel && data.rss.channel.item) {
+    podcasts = podcastsDataSetter(data); //setea la informacion de los podcasts en un array de objetos
+  }
 
-  console.log(podcasts)
-    
+
+  const handlePodcastItemClick = (index) => {
+    const updatedAudiosOrder = [...podcasts.slice(index - 1)];
+    const setUpdateAudioOrder = updatedAudiosOrder.map((podcast) => ({
+      title: podcast.title,
+      url: podcast.audioUrl,
+      image: podcast.image,
+    }));
+
+    setAudiosOrder(setUpdateAudioOrder); // Actualiza el estado con el nuevo orden de audios
+    console.log(setUpdateAudioOrder);
+  };
+
   return (
     <>
 
@@ -46,9 +63,15 @@ export const PodcastDetailsGrid = () => {
               </thead>
               <tbody>
                 {podcasts.map((podcast, index) => (
-                  <PodcastDetailItems key={ podcast.id } podcast={ podcast } index={ index + 1 }/> //renderiza una fila de la tabla por cada podcast
+                    <PodcastDetailItems 
+                    key={podcast.id} 
+                    podcast={podcast} 
+                    index={index + 1}
+                    onClick={handlePodcastItemClick}
+                  /> //renderiza una fila de la tabla por cada podcast
                 ))}
               </tbody>
+
             </table>
         </>
       }

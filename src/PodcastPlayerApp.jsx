@@ -1,9 +1,11 @@
 import { React, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { SearchBar } from './components/SearchBar'
-import { PodcastGrid } from './components/PodcastGrid'
-import { PodcastDetailsGrid } from './components/PodcastDetailsGrid';
-import { AudioPlayer } from './components/AudioPlayer';
+import { AudioOrderProvider } from './providers/AudioOrderProvider'
+
+import { SearchBar } from './components/podcast_search/SearchBar'
+import { PodcastGrid } from './components/podcast_search/PodcastGrid'
+import { PodcastDetailsGrid } from './components/Podcast_view/PodcastDetailsGrid';
+import { AudioPlayer } from './components/audio_player/AudioPlayer';
 
 export const PodcastPlayerApp = () => {
 
@@ -26,34 +28,35 @@ export const PodcastPlayerApp = () => {
   };
 
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <div className="flex-col mx-auto w-830">
-                <SearchBar onSetSearch={onSetSearch} />
-                <PodcastGrid search={search} />
-              </div>
-            }
-          />
+    <AudioOrderProvider>
 
-          <Route path="/podcast/:collectionId" element={<PodcastDetailsGrid />} />
-        </Routes>
-      </BrowserRouter>
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <div className="flex-col mx-auto w-830">
+                  <SearchBar onSetSearch={onSetSearch} />
+                  <PodcastGrid search={search} />
+                </div>
+              }
+            />
 
-      {/* Renderizar AudioPlayer solo si se está reproduciendo un audio */}
-      {isAudioPlaying && (
-        <div className="fixed bottom-0 w-full">
-          <AudioPlayer
-            onPlay={handleAudioPlay}
-            onPause={handleAudioPause}
-          />
-        </div>
-      )}
+            <Route path="/podcast/:collectionId" element={<PodcastDetailsGrid />} />
+          </Routes>
+        </BrowserRouter>
 
-    </div>
+        {/* Renderizar AudioPlayer solo si se está reproduciendo un audio */}
+
+          <div className="fixed bottom-0 w-full">
+            <AudioPlayer
+            />
+          </div>
+
+
+      </div>
+    </AudioOrderProvider>
   );
 };
