@@ -10,7 +10,7 @@ export const podcastsDataSetter = (data) => {
       return {
         image: (episode['itunes:image'] && episode['itunes:image']._attributes && episode['itunes:image']._attributes.href) || '',
         title: (episode.title && (episode.title._cdata || episode.title._text)) || '',
-        description: cleanDescription,
+        description: cleanDescription.substring(0, 100),
         releaseDate: (episode.pubDate && (episode.pubDate._text || episode.pubDate._cdata)) || '',
         audioUrl: (episode.enclosure && episode.enclosure._attributes && episode.enclosure._attributes.url) || '',
         id: (episode.guid && (episode.guid._text || episode.guid._cdata)) || '',

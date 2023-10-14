@@ -8,7 +8,7 @@ import { podcastsDataSetter } from '../../helpers/podcastsDataSetter';
 
 export const PodcastDetailsGrid = () => {
   const [ audiosOrder, setAudiosOrder ] = useContext(AudioOrderContext);
-  const feedUrl = useLocation().state.feedUrl; //recoge la informacion del podcast seleccionado
+  const { feedUrl, artworkUr, collectionName } = useLocation().state; //recoge la informacion del podcast seleccionado
   const { data, isLoading, error } = useFetchXML( feedUrl ); //recoge la informacion del canal de podcast seleccionado
   
   let podcasts = [];
@@ -40,17 +40,15 @@ export const PodcastDetailsGrid = () => {
       {data &&
         <>
 
-          {/* <div
-            className="mx-auto mt-20 mb-20 bg-black h-100 w-100 bg-no-repeat bg-center rounded-full bg-cover"
-            style={{
-              backgroundImage: `url(
-                https://cdn.zendalibros.com/wp-content/uploads/podcast.jpg
-              )`,
-            }}
-            alt="podcast"
-          ></div> */}
+          <div className="mx-auto mt-20 mb-20 bg-black h-60 w-2/3 overflow-hidden">
+            <img
+              src={artworkUr}
+              alt="podcast"
+              className="object-cover w-full h-full"
+            />
+          </div>
 
-          <h1 className="flex items-center- justify-center mx-auto w-2/3">How to start a podcast</h1>
+          <h1 className="flex items-center- justify-center mx-auto w-2/3 text-3xl">{ collectionName }</h1>
 
           <table className="mx-auto w-2/3">
               <thead>
