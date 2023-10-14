@@ -19,7 +19,28 @@ export const AudioPlayer = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  
+    useEffect(() => {
 
+      if (audiosOrder.length > 0 && audiosOrder[0].url !=='' && !isPlaying) {
+        setCurrentTrackIndex(0);
+        setIsPlaying(true);
+        audioRef.current.load(); // Cargar nueva fuente de audio
+        audioRef.current.play();
+      }
+
+      const handleEnd = () => {
+        setIsPlaying(false);
+        setCurrentTrackIndex(null);  // Anular la reproducción al llegar al final
+      };
+  
+      audioRef.current.addEventListener("ended", handleEnd);
+  
+      return () => {
+        audioRef.current.removeEventListener("ended", handleEnd);
+      };
+    }, [audiosOrder, isPlaying]);
+  
   const playAudio = () => {
 	if (isPlaying) {
 	  audioRef.current.pause();
@@ -34,23 +55,10 @@ export const AudioPlayer = () => {
 
   const changeTrack = (index) => {
     setCurrentTrackIndex(index);
-    audioRef.current.load(); // Load new audio source
-    setIsPlaying(true); // Start playing the new track
+    audioRef.current.load(); // carga una nueva fuente de audio
+    setIsPlaying(true); // empieza a reproducir
     audioRef.current.play();
   };
-
-  useEffect(() => {
-    const handleEnd = () => {
-      setIsPlaying(false);
-      setCurrentTrackIndex(null);  // Anular la reproducción al llegar al final
-    };
-
-    audioRef.current.addEventListener("ended", handleEnd);
-
-    return () => {
-      audioRef.current.removeEventListener("ended", handleEnd);
-    };
-  }, []);
   
 
   return (
