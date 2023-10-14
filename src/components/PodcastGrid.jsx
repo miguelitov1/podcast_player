@@ -4,6 +4,7 @@ import { PodcastItem } from './PodcastItem';
 export const PodcastGrid = ({ search }) => {
 
     const { data, isLoading, error } = useFetchJSON( `https://itunes.apple.com/search?term=${ search }&media=podcast` );
+    console.log(data);
 
     return (
         <>

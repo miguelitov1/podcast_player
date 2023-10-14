@@ -1,16 +1,18 @@
+import { useLocation } from 'react-router-dom';
 import { useFetchXML } from '../hooks/useFetchXML';
 import { PodcastDetailItems } from './PodcastDetailItems';
 import { podcastsDataSetter } from '../helpers/podcastsDataSetter';
 
-export const PodcastDetails = () => {
+export const PodcastDetailsGrid = () => {
 
-    const { data, isLoading, error } = useFetchXML( `https://anchor.fm/s/157ee310/podcast/rss` ); //recoge la informacion del canal de podcast seleccionado
+  const feedUrl = useLocation().state.feedUrl; //recoge la informacion del podcast seleccionado
+  const { data, isLoading, error } = useFetchXML( feedUrl ); //recoge la informacion del canal de podcast seleccionado
 
-    let podcasts = [];
+  let podcasts = [];
 
-    if (data && data.rss && data.rss.channel && data.rss.channel.item) podcasts = podcastsDataSetter( data ); //setea la informacion de los podcasts en un array de objetos
+  if (data && data.rss && data.rss.channel && data.rss.channel.item) podcasts = podcastsDataSetter( data ); //setea la informacion de los podcasts en un array de objetos
 
-    console.log(podcasts)
+  console.log(podcasts)
     
   return (
     <>

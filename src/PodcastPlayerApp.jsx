@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { SearchBar } from './components/SearchBar'
 import { PodcastGrid } from './components/PodcastGrid'
-import { PodcastDetails } from './components/PodcastDetailsGrid';
+import { PodcastDetailsGrid } from './components/PodcastDetailsGrid';
 
 export const PodcastPlayerApp = () => {
 
@@ -26,8 +26,8 @@ export const PodcastPlayerApp = () => {
           </div>
         }/>
 
-        <Route exact path="/podcast/:podcastId" element={
-          <PodcastDetails />
+        <Route path="/podcast/:collectionId" element={
+          <PodcastDetailsGrid />
         }/>
 
       </Routes>
