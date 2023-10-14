@@ -1,9 +1,9 @@
-import { useFetchJSON } from '../hooks/useFetchJSON';
+import { useFetchJSON } from '../../hooks/useFetchJSON';
 import { PodcastItem } from './PodcastItem';
 
 export const PodcastGrid = ({ search }) => {
 
-    const { data, isLoading, error } = useFetchJSON( `https://itunes.apple.com/search?term=${ search }&media=podcast` );
+    const { data, isLoading, error } = useFetchJSON( `https://itunes.apple.com/search?media=podcast&term=${ search }&language=ES&country=ES` );
     console.log(data);
 
     return (
@@ -32,7 +32,6 @@ export const PodcastGrid = ({ search }) => {
             </table>
           )}
 
-          {/* <BasicTable data={ data }/> */}
       </>
     )
   }

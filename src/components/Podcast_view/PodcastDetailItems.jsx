@@ -1,12 +1,12 @@
 //Componente para mostrar detalles de un podcast en una fila de una tabla.
-import genericImage from '../public/podcast-logo.jpeg';
+import genericImage from '../../public/podcast-logo.jpeg';
 
-export const PodcastDetailItems = ({ podcast, index }) => {
+export const PodcastDetailItems = ({ podcast, index, onClick }) => {
   
     const imageUrl = podcast.image || genericImage; // Si no hay imagen, usa la genérica
-    
+
     return (
-        <tr key={podcast.id} className='max-h-16'> {/* Renderiza una fila de la tabla por cada podcast */}
+        <tr key={podcast.id} className='max-h-16 border-b border-gray-300' onClick={() => onClick(index)}> {/* Renderiza una fila de la tabla por cada podcast */}
             <td>
               { index }
             </td>
@@ -20,7 +20,7 @@ export const PodcastDetailItems = ({ podcast, index }) => {
                       </div>
 
                       <div className="ml-4">
-                          <p className="font-medium">{podcast.title}</p>
+                          <p className="font-medium line-clamp-2">{podcast.title}</p>
                       </div>   
 
                   </div>
